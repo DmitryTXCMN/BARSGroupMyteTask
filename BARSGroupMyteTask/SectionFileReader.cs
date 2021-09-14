@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace BARSGroupMyteTask
 {
-    public class SectionFileReader
+    public static class SectionFileReader
     {
-        public List<Section> ReadFromFile(string location)
+        public static List<Section> ReadFromFile(string location)
         {
             var list = new List<Section>();
             using (StreamReader reader = new StreamReader(Directory.GetCurrentDirectory() + location))

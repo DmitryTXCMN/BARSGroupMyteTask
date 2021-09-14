@@ -7,48 +7,67 @@ namespace BARSGroupMyteTask
         public double x;
         public double y;
 
-        public Dot(double inputX, double inputY)
+        public Dot(double X, double Y)
         {
-            x = inputX;
-            y = inputY;
+            x = X;
+            y = Y;
         }
+
+        public override string ToString() =>
+            $"({x} ; {y})";
     }
 
-    public class Section
+    public class Section : IComparable<Section>
     {
         public Dot PointA;
         public Dot PointB;
         private double lenghtMagnitude;
         private double lenght;
-
-        public Section(double inputAX, double inputAY, double inputBX, double inputBY)
+        public double LenghtMagnitude
         {
-            PointA = new Dot(inputAX, inputAY);
-            PointB = new Dot(inputBX, inputBY);
+            get
+            {
+                GetLenghtMagnitude();
+                return lenghtMagnitude;
+            }
+        }
+        public double Lenght
+        {
+            get
+            {
+                GetLenght();
+                return lenght;
+            }
+        }
+
+        public int CompareTo(Section other) =>
+            LenghtMagnitude.CompareTo(other.LenghtMagnitude);
+
+        public override string ToString() =>
+        $"PointA: {PointA} PointB: {PointB} Lenght: {Lenght}";
+
+        public Section(double AX, double AY, double BX, double BY)
+        {
+            PointA = new Dot(AX, AY);
+            PointB = new Dot(BX, BY);
             lenghtMagnitude = -1;
             lenght = -1;
         }
 
-        public double GetLenghtMagnitude()
+        private void GetLenghtMagnitude()
         {
-            if (lenghtMagnitude == -1)
-            {
-                double deltaX = PointA.x - PointB.x;
-                double deltaY = PointA.y - PointB.y;
-                lenghtMagnitude = deltaX * deltaX + deltaY * deltaY;
-            }
-            return lenghtMagnitude;
+            if (lenghtMagnitude != -1)
+                return;
+            double deltaX = PointA.x - PointB.x;
+            double deltaY = PointA.y - PointB.y;
+            lenghtMagnitude = deltaX * deltaX + deltaY * deltaY;
         }
 
-        public double GetLenght()
+        private void GetLenght()
         {
-            if (lenght == -1)
-            {
-                if (lenghtMagnitude == -1)
-                    GetLenghtMagnitude();
-                lenght = (double)Math.Sqrt(lenghtMagnitude);
-            }
-            return lenght;
+            if (lenght != -1)
+                return;
+            lenght = (double)Math.Sqrt(LenghtMagnitude);
         }
     }
 }

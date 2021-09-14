@@ -5,14 +5,14 @@ namespace BARSGroupMyteTask
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //example of realisation
-            List<Section> sectionList = new SectionFileReader().ReadFromFile(@"\InputSections.txt");
-            new SectionSorter().Sort(sectionList);
+            List<Section> sectionList = SectionFileReader.ReadFromFile(@"\InputSections.txt");
+            sectionList.Sort();
             foreach (var section in sectionList)
             {
-                Console.WriteLine(section.GetLenght());
+                Console.WriteLine(section.ToString());
             }
         }
     }
